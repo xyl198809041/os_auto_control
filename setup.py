@@ -11,7 +11,7 @@ setuptools.setup(
     description="我的工具",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/xyl198809041/py_tool",
+    url="https://github.com/xyl198809041/os_auto_control",
     packages=setuptools.find_packages(),
     python_requires='>=3.5',
     install_requires=[
