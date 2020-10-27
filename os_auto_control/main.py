@@ -12,8 +12,19 @@ def check_process():
 检查进程
     """
     processes = {p.name(): p for p in psutil.process_iter()}
-    not_in_list = [name for name in processes if name not in data.process_white_list]
+    # 不在所有名单中,提交
+    not_in_list = [name for name in processes if
+                   name not in data.process_not_in_list and
+                   name not in data.process_white_list and
+                   name not in data.process_black_list]
+    [c.web_update('processes_not_in_list', name) for name in not_in_list]
+    data.process_not_in_list.extend(not_in_list)
+    # 在黑名单中,直接杀了
+    not_in_list = [name for name in processes if name in data.process_black_list]
     [processes[name].kill() for name in not_in_list]
+    # 不在白名单中,再说
+    not_in_list = [name for name in processes if name not in data.process_white_list]
+    # [processes[name].kill() for name in not_in_list]
 
 
 @c.try_function
@@ -21,12 +32,7 @@ def update_local_info():
     """
 上传更新本机信息
     """
-    rt = c.web.GetJson('%s/update?mac=%s&key=%s&value=%s' %
-                       (c.base_url, c.get_mac_address(), "ip", c.get_ip_address()))
-    if rt['code'] == 200:
-        print('更新电脑信息完成')
-    else:
-        print(rt['msg'])
+    c.web_update('ip', c.get_ip_address())
 
 
 @c.try_function
@@ -38,7 +44,7 @@ def update_local_self():
         'pip install https://codeload.github.com/xyl198809041/os_auto_control/zip/master --upgrade --no-cache-dir')
     if rt == 1:
         raise Exception('软件更新失败')
-    print('软件更新成功')
+    c.web_update('update', '0')
 
 
 if __name__ == '__main__':

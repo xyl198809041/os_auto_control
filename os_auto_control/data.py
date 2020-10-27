@@ -17,7 +17,8 @@ process_white_list = ['System Idle Process', 'System', 'Registry', 'RuntimeBroke
                       'Microsoft.Photos.exe', 'HxTsr.exe',
                       # 以上是我系统上的软件
                       'smss.exe', 'svchost.exe', 'Code.exe', 'SynTPHelper.exe', 'csrss.exe', 'wininit.exe',
-                      'conhost.exe','services.exe', 'lsass.exe', 'winlogon.exe', 'fontdrvhost.exe', 'SearchFilterHost.exe',
+                      'conhost.exe', 'services.exe', 'lsass.exe', 'winlogon.exe', 'fontdrvhost.exe',
+                      'SearchFilterHost.exe',
                       'RtkAudioService.exe', 'CodeHelper.exe', 'dwm.exe', 'driver.exe', 'SearchProtocolHost.exe',
                       'HipsDaemon.exe', 'MemCompression', 'audiodg.exe', 'usysdiag.exe', 'wsctrlsvc.exe',
                       'spoolsv.exe', 'taskhostw.exe', 'dasHost.exe', 'ApplicationFrameHost.exe', 'FamItrf2.Exe',
@@ -28,6 +29,27 @@ process_white_list = ['System Idle Process', 'System', 'Registry', 'RuntimeBroke
                       'SearchUI.exe', 'RuntimeBroker.exe', 'ctfmon.exe', 'TabTip.exe', 'FamItrfc.Exe', 'alg.exe',
                       'WindowsInternal.ComposableShell.Experiences.TextInput.InputApp.exe', 'baidupinyin.exe',
                       'SearchIndexer.exe', 'POWERPNT.EXE', 'WmiPrvSE.exe', 'python.exe', 'winpty-agent.exe',
-                      'powershell.exe',
+                      'powershell.exe',  "TrustedInstaller.exe",
+                      "TiWorker.exe",
+                      "WhiteboardWRT.exe",
+                      "smartscreen.exe",
+                      "baidunetdisk.exe",
+                      "baidunetdiskhost.exe",
+                      "baidunetdiskrender.exe",
+                      "yundetectservice.exe",
+                      "identity_helper.exe",
+                      "XLLiveUD.exe",
+                      "DownloadSDKServer.exe",
+                      "Thunder.exe",
+                      "WeChatStore.exe",
+                      "xlbrowsershell.exe",
+                      "OpenWith.exe",
+                      "rundll32.exe",
+                      "backgroundTaskHost.exe",
+                      "ScreenClippingHost.exe"
                       # 以上是教室机器上的软件
                       ]
+
+process_black_list = []
+
+process_not_in_list = []
