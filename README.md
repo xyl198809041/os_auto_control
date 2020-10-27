@@ -3,4 +3,4 @@
 ## Python
 
 ## pip install
-`pip install  https://codeload.github.com/xyl198809041/py_tool/zip/master -i https://pypi.tuna.tsinghua.edu.cn/simple`
+`pip install  https://github.com/xyl198809041/os_auto_control/archive/master.zip -i https://pypi.tuna.tsinghua.edu.cn/simple`
