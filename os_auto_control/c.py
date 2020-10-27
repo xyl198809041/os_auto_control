@@ -9,10 +9,11 @@ base_url = 'http://local.api.hzsgz.com/os_server'
 
 def try_function(func):
     def new_func():
-        try:
-            func()
-        except Exception as e:
-            update_error(str(e), 'system_error')
+        # try:
+        func()
+        # except Exception as e:
+        #     print(str(e))
+        #     update_error(str(e), 'system_error')
     return new_func
 
 

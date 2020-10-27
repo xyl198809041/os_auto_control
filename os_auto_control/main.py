@@ -21,8 +21,12 @@ def update_local_info():
     """
 上传更新本机信息
     """
-    c.web.GetJson('%s/update?mac=%s&key=%s&value=%s' %
-                  (c.base_url, c.get_mac_address(), "ip", c.get_ip_address()))
+    rt = c.web.GetJson('%s/update?mac=%s&key=%s&value=%s' %
+                       (c.base_url, c.get_mac_address(), "ip", c.get_ip_address()))
+    if rt['code'] == 200:
+        print('更新电脑信息完成')
+    else:
+        print(rt['msg'])
 
 
 @c.try_function
@@ -30,7 +34,8 @@ def update_local_self():
     """
 软件更新,重启后生效
     """
-    rt = os.system('pip install https://codeload.github.com/xyl198809041/os_auto_control/zip/master --upgrade --no-cache-dir')
+    rt = os.system(
+        'pip install https://codeload.github.com/xyl198809041/os_auto_control/zip/master --upgrade --no-cache-dir')
     if rt == 1:
         raise Exception('软件更新失败')
     print('软件更新成功')
