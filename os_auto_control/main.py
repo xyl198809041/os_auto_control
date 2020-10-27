@@ -1,8 +1,7 @@
 import psutil
-import data
+from os_auto_control import data, c
 import schedule
 from time import sleep
-import c
 import os
 
 
