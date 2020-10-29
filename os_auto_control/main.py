@@ -75,7 +75,7 @@ if __name__ == '__main__':
     print(c.get_mac_address())
     c.set_seewo_class('222')
     # end测试
-    schedule.every(1).days.at('12:00').do(update_local_self)
+    schedule.every(1).days.at('12:00').do(update_local_self).run()
     schedule.every(10).seconds.do(check_process)
     schedule.every(1).hours.do(update_local_info).run()
     while True:
