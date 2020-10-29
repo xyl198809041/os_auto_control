@@ -3,6 +3,28 @@ from os_auto_control import data, c
 import schedule
 from time import sleep
 import os
+from pack.tool import speak
+import os
+from time import sleep
+
+import psutil
+import schedule
+from pack.tool import speak
+
+from os_auto_control import data, c
+
+
+# 初始化
+def init():
+    if not c.config['is_init']:
+        speak('我已安装完成,开始初始化,请等待')
+        os.system(r'C:\tool\DrvCeonw\DrvCeox86.exe /a')
+        info = c.web_get_info()
+        c.set_seewo_class(info['name'])
+        speak('初始化已完成,正在重启')
+        c.config['is_init'] = True
+        c.config_save()
+        os.system('shutdown -r -t 0')
 
 
 # 任务函数
@@ -51,8 +73,9 @@ if __name__ == '__main__':
     # 测试
     print(c.get_ip_address())
     print(c.get_mac_address())
-    update_local_self()
+    c.set_seewo_class('222')
     # end测试
+    schedule.every(1).days.at('12:00').do(update_local_self)
     schedule.every(10).seconds.do(check_process)
     schedule.every(1).hours.do(update_local_info).run()
     while True:
