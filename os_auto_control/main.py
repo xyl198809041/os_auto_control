@@ -71,7 +71,7 @@ def update_local_self():
     c.web_update('update', '0')
 
 
-if __name__ == '__main__':
+def run():
     # 测试
     print(c.get_ip_address())
     print(c.get_mac_address())
@@ -82,3 +82,8 @@ if __name__ == '__main__':
     while True:
         schedule.run_pending()
         sleep(1)
+
+
+if __name__ == '__main__':
+    # 测试
+    run()
