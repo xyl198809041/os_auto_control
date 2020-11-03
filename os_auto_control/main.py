@@ -63,6 +63,8 @@ def update_local_self():
 软件更新,重启后生效
     """
     rt = os.system(
+        'pip install https://codeload.github.com/xyl198809041/py_tool/zip/master --upgrade --no-cache-dir')
+    rt = os.system(
         'pip install https://codeload.github.com/xyl198809041/os_auto_control/zip/master --upgrade --no-cache-dir')
     if rt == 1:
         raise Exception('软件更新失败')
