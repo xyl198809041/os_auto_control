@@ -75,7 +75,6 @@ if __name__ == '__main__':
     # 测试
     print(c.get_ip_address())
     print(c.get_mac_address())
-    c.set_seewo_class('222')
     # end测试
     schedule.every(1).days.at('12:00').do(update_local_self).run()
     schedule.every(10).seconds.do(check_process)
