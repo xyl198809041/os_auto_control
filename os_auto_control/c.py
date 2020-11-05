@@ -1,8 +1,10 @@
 import json
 import socket
+import time
 import uuid
 import pack.pyChrome as chrome
 import configparser
+import psutil
 
 
 def config_save():
@@ -35,7 +37,7 @@ def web_msg(msg: str, type: str):
 
 def web_get_info():
     rt = web.GetJson('%s/get_info?mac=%s' % (base_url, get_mac_address()))
-    if rt['Code'] != 200:
+    if rt['code'] != 200:
         raise Exception('获取主机信息错误')
     return rt
 
@@ -82,6 +84,16 @@ def set_seewo_class(id: str):
     config.set('GENERAL', 'DeviceName', id)
     with open(path, 'w') as f:
         config.write(f)
+
+
+def wait_process_running(process: str):
+    """
+等待进程运行结束
+    :param process:
+    """
+    while True:
+        if process in [p.name() for p in psutil.process_iter()]:
+            time.sleep(1)
 
 
 # 参数

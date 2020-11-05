@@ -1,9 +1,4 @@
-import psutil
-from os_auto_control import data, c
-import schedule
-from time import sleep
-import os
-from pack.tool import speak
+
 import os
 from time import sleep
 
@@ -19,6 +14,7 @@ def init():
     if not c.config['is_init']:
         speak('我已安装完成,开始初始化,请等待')
         os.system(r'C:\tool\DrvCeonw\DrvCeox86.exe /a')
+        c.wait_process_running('DrvCeox86.exe')
         info = c.web_get_info()
         c.set_seewo_class(info['name'])
         speak('初始化已完成,正在重启')
