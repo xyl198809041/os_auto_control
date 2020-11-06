@@ -92,9 +92,11 @@ def wait_process_running(process: str):
     :param process:
     """
     while True:
-        if process in [p.name() for p in psutil.process_iter()]:
-            time.sleep(1)
-            print(1)
+        process_list = [p.name() for p in psutil.process_iter()]
+        if process in process_list:
+            time.sleep(10)
+        else:
+            return
 
 
 # 参数
