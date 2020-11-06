@@ -16,7 +16,7 @@ def init():
         os.system(r'C:\tool\DrvCeonw\DrvCeox86.exe /a')
         c.wait_process_running('DrvCeox86.exe')
         info = c.web_get_info()
-        c.set_seewo_class(info['name'])
+        c.set_seewo_class(info['data']['name'])
         speak('配置已完成,正在重启')
         c.config['is_init'] = True
         c.config_save()
