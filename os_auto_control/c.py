@@ -94,6 +94,7 @@ def wait_process_running(process: str):
     while True:
         if process in [p.name() for p in psutil.process_iter()]:
             time.sleep(1)
+            print(1)
 
 
 # 参数
