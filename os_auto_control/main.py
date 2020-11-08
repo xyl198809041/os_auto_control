@@ -1,4 +1,3 @@
-
 import os
 from time import sleep
 
@@ -29,20 +28,24 @@ def check_process():
     """
 检查进程
     """
+    # 白名单剔除
     processes = {p.name(): p for p in psutil.process_iter()}
+    psutil.Process().exe()
+    not_in_white_list = [name for name in processes if name not in data.process_white_list]
+    not_in_white_list = [name for name in not_in_white_list if
+                         not c.chece_file_in_white_Copyright(processes[name].exe())]
+    # 在黑名单中,直接杀了,并剔除
+    black_list = [name for name in not_in_white_list if name in data.process_black_list]
+    [processes[name].kill() for name in black_list]
+    print('黑名单,杀掉进程:', black_list)
+    not_in_white_list = [name for name in not_in_white_list if name not in data.process_black_list]
+    # 不在名单中的,再说
+
     # 不在所有名单中,提交
-    not_in_list = [name for name in processes if
-                   name not in data.process_not_in_list and
-                   name not in data.process_white_list and
-                   name not in data.process_black_list]
-    [c.web_update('processes_not_in_list', name) for name in not_in_list]
-    data.process_not_in_list.extend(not_in_list)
-    # 在黑名单中,直接杀了
-    not_in_list = [name for name in processes if name in data.process_black_list]
-    [processes[name].kill() for name in not_in_list]
-    # 不在白名单中,再说
-    not_in_list = [name for name in processes if name not in data.process_white_list]
-    # [processes[name].kill() for name in not_in_list]
+    not_in_white_list = [name for name in not_in_white_list if name not in data.process_not_in_list]
+    print('灰名单,提交数据:', not_in_white_list)
+    [c.web_update('processes_not_in_list', name) for name in not_in_white_list]
+    data.process_not_in_list.extend(not_in_white_list)
 
 
 @c.try_function

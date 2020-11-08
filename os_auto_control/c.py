@@ -5,6 +5,9 @@ import uuid
 import pack.pyChrome as chrome
 import configparser
 import psutil
+import win32api
+
+from os_auto_control import data
 
 
 def config_save():
@@ -55,7 +58,6 @@ def try_function(func):
         except Exception as e:
             print(str(e))
             web_msg(str(e), 'system_error')
-
     return new_func
 
 
@@ -97,6 +99,22 @@ def wait_process_running(process: str):
             time.sleep(10)
         else:
             return
+
+
+def chece_file_in_white_Copyright(file: str):
+    """
+获取文件的版本信息
+    :param file:
+    :return:
+    """
+    translation = win32api.GetFileVersionInfo(file, '\\VarFileInfo\\Translation')[0]
+    c = win32api.GetFileVersionInfo(file,
+                                    u'\\StringFileInfo\\%04X%04X\\%s' %
+                                    (translation[0], translation[1], 'LegalCopyright'))
+    for item in data.Copyright_white_list:
+        if item in c:
+            return True
+    return False
 
 
 # 参数

@@ -29,7 +29,7 @@ process_white_list = ['System Idle Process', 'System', 'Registry', 'RuntimeBroke
                       'SearchUI.exe', 'RuntimeBroker.exe', 'ctfmon.exe', 'TabTip.exe', 'FamItrfc.Exe', 'alg.exe',
                       'WindowsInternal.ComposableShell.Experiences.TextInput.InputApp.exe', 'baidupinyin.exe',
                       'SearchIndexer.exe', 'POWERPNT.EXE', 'WmiPrvSE.exe', 'python.exe', 'winpty-agent.exe',
-                      'powershell.exe',  "TrustedInstaller.exe",
+                      'powershell.exe', "TrustedInstaller.exe",
                       "TiWorker.exe",
                       "WhiteboardWRT.exe",
                       "smartscreen.exe",
@@ -53,3 +53,7 @@ process_white_list = ['System Idle Process', 'System', 'Registry', 'RuntimeBroke
 process_black_list = []
 
 process_not_in_list = []
+
+Copyright_white_list = ['Microsoft']
+
+process_allow_now_list = {}
