@@ -23,7 +23,7 @@ def init():
 
 
 # 任务函数
-@c.try_function
+# @c.try_function
 def check_process():
     """
 检查进程
