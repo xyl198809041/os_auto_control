@@ -33,7 +33,7 @@ def check_process():
     psutil.Process().exe()
     not_in_white_list = [name for name in processes if name not in data.process_white_list]
     not_in_white_list = [name for name in not_in_white_list if
-                         not c.chece_file_in_white_Copyright(processes[name].exe())]
+                         not c.check_file_in_white_Copyright(processes[name].exe())]
     # 在黑名单中,直接杀了,并剔除
     black_list = [name for name in not_in_white_list if name in data.process_black_list]
     [processes[name].kill() for name in black_list]

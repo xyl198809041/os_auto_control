@@ -101,7 +101,7 @@ def wait_process_running(process: str):
             return
 
 
-def chece_file_in_white_Copyright(file: str):
+def check_file_in_white_Copyright(file: str):
     """
 获取文件的版本信息
     :param file:
