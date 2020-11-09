@@ -107,6 +107,7 @@ def chece_file_in_white_Copyright(file: str):
     :param file:
     :return:
     """
+    print(file)
     translation = win32api.GetFileVersionInfo(file, '\\VarFileInfo\\Translation')[0]
     c = win32api.GetFileVersionInfo(file,
                                     u'\\StringFileInfo\\%04X%04X\\%s' %
