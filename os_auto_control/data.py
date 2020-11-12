@@ -46,7 +46,32 @@ process_white_list = ['System Idle Process', 'System', 'Registry', 'RuntimeBroke
                       "OpenWith.exe",
                       "rundll32.exe",
                       "backgroundTaskHost.exe",
-                      "ScreenClippingHost.exe"
+                      "ScreenClippingHost.exe",
+                      'LogonUI.exe',
+                      'rdpclip.exe',
+                      'TSTheme.exe',
+                      'AtBroker.exe',
+                      'Taskmgr.exe',
+                      'chrome.exe',
+                      'WMIADAP.exe',
+                      'UpdateNotificationMgr.exe',
+                      'GoogleUpdate.exe',
+                      'SpeechRuntime.exe',
+                      'RtHDVCpl.exe',
+                      'SppExtComObj.Exe',
+                      'sppsvc.exe',
+                      'igfxTray.exe',
+                      'igfxHK.exe',
+                      'igfxEM.exe',
+                      'pythonw.exe',
+                      'PresentationFontCache.exe',
+                      'telnetd.exe',
+                      'BaiduPinyinCore.exe',
+                      'EasiUpdate3Protect.exe',
+                      'EasiUpdate3.exe',
+                      'CompatTelRunner.exe',
+                      'igfxCUIService.exe',
+                      'HRUpdate.exe'
                       # 以上是教室机器上的软件
                       ]
 

@@ -108,14 +108,17 @@ def check_file_in_white_Copyright(file: str):
     :return:
     """
     print(file)
-    translation = win32api.GetFileVersionInfo(file, '\\VarFileInfo\\Translation')[0]
-    c = win32api.GetFileVersionInfo(file,
-                                    u'\\StringFileInfo\\%04X%04X\\%s' %
-                                    (translation[0], translation[1], 'ProductName'))
-    for item in data.Copyright_white_list:
-        if item in c:
-            return True
-    return False
+    try:
+        translation = win32api.GetFileVersionInfo(file, '\\VarFileInfo\\Translation')[0]
+        c = win32api.GetFileVersionInfo(file,
+                                        u'\\StringFileInfo\\%04X%04X\\%s' %
+                                        (translation[0], translation[1], 'ProductName'))
+        for item in data.Copyright_white_list:
+            if item in c:
+                return True
+        return False
+    except:
+        return False
 
 
 # 参数
