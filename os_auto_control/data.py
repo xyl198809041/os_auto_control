@@ -71,7 +71,8 @@ process_white_list = ['System Idle Process', 'System', 'Registry', 'RuntimeBroke
                       'EasiUpdate3.exe',
                       'CompatTelRunner.exe',
                       'igfxCUIService.exe',
-                      'HRUpdate.exe'
+                      'HRUpdate.exe',
+                      'BugReport.exe'
                       # 以上是教室机器上的软件
                       ]
 
