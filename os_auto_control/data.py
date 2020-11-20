@@ -83,7 +83,11 @@ process_white_list = ['System Idle Process', 'System', 'Registry', 'RuntimeBroke
                       'nvvsvc.exe',
                       'imeconfig.exe',
                       'QQPlayer.exe',
-                      'DrvCeox86.exe'
+                      'DrvCeox86.exe',
+                      'cmd.exe',
+                      'python.exe',
+                      'pythonw.exe',
+                      'pip.exe'
                       # 以上是教室机器上的软件
                       ]
 
