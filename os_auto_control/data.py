@@ -72,7 +72,18 @@ process_white_list = ['System Idle Process', 'System', 'Registry', 'RuntimeBroke
                       'CompatTelRunner.exe',
                       'igfxCUIService.exe',
                       'HRUpdate.exe',
-                      'BugReport.exe'
+                      'BugReport.exe',
+                      'QQ.exe',
+                      'WeChat.exe',
+                      'wechatweb.exe',
+                      'QQProtect.exe',
+                      'nvvsvc.exe',
+                      'Defrag.exe',
+                      'nvxdsync.exe',
+                      'nvvsvc.exe',
+                      'imeconfig.exe',
+                      'QQPlayer.exe',
+                      'DrvCeox86.exe'
                       # 以上是教室机器上的软件
                       ]
 
