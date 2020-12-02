@@ -1,5 +1,5 @@
 # 版本号
-v = '2020.11.22'
+v = '2020.12.02'
 
 # 系统进程白名单
 process_white_list = ['System Idle Process', 'System', 'Registry', 'RuntimeBroker.exe', 'ctfmon.exe', 'smss.exe',
