@@ -90,7 +90,9 @@ process_white_list = ['System Idle Process', 'System', 'Registry', 'RuntimeBroke
                       'cmd.exe',
                       'python.exe',
                       'pythonw.exe',
-                      'pip.exe'
+                      'pip.exe',
+                      'HiteDriver.exe',
+                      'py.exe'
                       # 以上是教室机器上的软件
                       ]
 
