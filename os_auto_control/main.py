@@ -76,6 +76,7 @@ def update_local_self():
 
 def run():
     # 测试
+    print(data.v)
     print(c.get_ip_address())
     print(c.get_mac_address())
     # end测试
