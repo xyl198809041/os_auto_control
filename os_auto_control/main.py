@@ -1,17 +1,15 @@
 import os
 from time import sleep
-
 import psutil
 import schedule
 from pack.tool import speak
-
 from os_auto_control import data, c
 
 
 # 初始化
 def init():
     if not c.config['is_init']:
-        speak('我已安装完成,开始配置,请等待')
+        speak('系统已安装完成,开始配置,请等待')
         os.system(r'C:\tool\DrvCeonw\DrvCeox86.exe /a')
         c.wait_process_running('DrvCeox86.exe')
         info = c.web_get_info()
@@ -36,7 +34,12 @@ def check_process():
                          not c.check_file_in_white_Copyright(processes[name].exe())]
     # 在黑名单中,直接杀了,并剔除
     black_list = [name for name in not_in_white_list if name in data.process_black_list]
+    black_list.extend([name for name in not_in_white_list if
+                       c.check_file_in_black_Copyright(processes[name].exe())])
     [processes[name].kill() for name in black_list]
+    if len(black_list) != 0:
+        speak('发现可疑软件在运行,系统已经将其封杀,如有疑问可以咨询许姚龙')
+    [c.web_update('processes_black_list', name) for name in black_list]
     print('黑名单,杀掉进程:', black_list)
     not_in_white_list = [name for name in not_in_white_list if name not in data.process_black_list]
     # 不在名单中的,再说
@@ -61,13 +64,14 @@ def update_local_self():
     """
 软件更新,重启后生效
     """
-    rt = os.system(
-        'pip install https://codeload.github.com/xyl198809041/py_tool/zip/master --upgrade --no-cache-dir')
-    rt = os.system(
-        'pip install https://codeload.github.com/xyl198809041/os_auto_control/zip/master --upgrade --no-cache-dir')
-    if rt == 1:
-        raise Exception('软件更新失败')
-    c.web_update('update', '0')
+    if c.web_get_v():
+        rt = os.system(
+            'pip install https://codeload.github.com/xyl198809041/py_tool/zip/master --upgrade --no-cache-dir')
+        rt = os.system(
+            'pip install https://codeload.github.com/xyl198809041/os_auto_control/zip/master --upgrade --no-cache-dir')
+        if rt == 1:
+            raise Exception('软件更新失败')
+        c.web_update('update', '0')
 
 
 def run():
@@ -76,8 +80,8 @@ def run():
     print(c.get_mac_address())
     # end测试
     init()
-    schedule.every(1).days.at('12:00').do(update_local_self)
-    schedule.every(10).seconds.do(check_process)
+    schedule.every(1).hours.do(update_local_self)
+    schedule.every(5).seconds.do(check_process)
     schedule.every(1).hours.do(update_local_info).run()
     while True:
         schedule.run_pending()

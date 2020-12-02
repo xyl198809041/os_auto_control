@@ -1,3 +1,6 @@
+# 版本号
+v = '2020.11.22'
+
 # 系统进程白名单
 process_white_list = ['System Idle Process', 'System', 'Registry', 'RuntimeBroker.exe', 'ctfmon.exe', 'smss.exe',
                       'wininit.exe', 'svchost.exe', 'lsass.exe', 'msedge.exe', 'csrss.exe', 'SearchApp.exe',
@@ -96,5 +99,7 @@ process_black_list = []
 process_not_in_list = []
 
 Copyright_white_list = ['Microsoft']
+
+Copyright_back_list = ['下载器', '360']
 
 process_allow_now_list = {}

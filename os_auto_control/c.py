@@ -6,7 +6,6 @@ import pack.pyChrome as chrome
 import configparser
 import psutil
 import win32api
-
 from os_auto_control import data
 
 
@@ -35,7 +34,10 @@ def web_msg(msg: str, type: str):
     :param msg:
     :param type:
     """
-    web.GetJson('%s/msg?mac=%s&type=%s&msg=%s' % (base_url, get_mac_address(), type, msg))
+    try:
+        web.GetJson('%s/msg?mac=%s&type=%s&msg=%s' % (base_url, get_mac_address(), type, msg))
+    except:
+        print('上传日志失败,网络断开')
 
 
 def web_get_info():
@@ -43,6 +45,22 @@ def web_get_info():
     if rt['code'] != 200:
         raise Exception('获取主机信息错误')
     return rt
+
+
+def web_get_v():
+    """
+获取版本号
+    :return:
+    """
+    rt = web.GetJson('%s/v')
+    try:
+        if rt['msg'] != data.v:
+            data.v = rt['msg']
+            return True
+        else:
+            return False
+    except:
+        return False
 
 
 def try_function(func):
@@ -58,6 +76,7 @@ def try_function(func):
         except Exception as e:
             print(str(e))
             web_msg(str(e), 'system_error')
+
     return new_func
 
 
@@ -114,6 +133,26 @@ def check_file_in_white_Copyright(file: str):
                                         u'\\StringFileInfo\\%04X%04X\\%s' %
                                         (translation[0], translation[1], 'ProductName'))
         for item in data.Copyright_white_list:
+            if item in c:
+                return True
+        return False
+    except:
+        return False
+
+
+def check_file_in_black_Copyright(file: str):
+    """
+获取文件的版本信息
+    :param file:
+    :return:
+    """
+    print(file)
+    try:
+        translation = win32api.GetFileVersionInfo(file, '\\VarFileInfo\\Translation')[0]
+        c = win32api.GetFileVersionInfo(file,
+                                        u'\\StringFileInfo\\%04X%04X\\%s' %
+                                        (translation[0], translation[1], 'ProductName'))
+        for item in data.Copyright_back_list:
             if item in c:
                 return True
         return False
