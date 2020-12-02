@@ -52,7 +52,7 @@ def web_get_v():
 获取版本号
     :return:
     """
-    rt = web.GetJson('%s/v')
+    rt = web.GetJson('%s/v' % base_url)
     try:
         if rt['msg'] != data.v:
             data.v = rt['msg']

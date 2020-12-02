@@ -79,8 +79,8 @@ def run():
     print(c.get_ip_address())
     print(c.get_mac_address())
     # end测试
-    init()
-    schedule.every(1).minutes.do(update_local_self)
+    #init()
+    schedule.every(1).minutes.do(update_local_self).run()
     schedule.every(5).seconds.do(check_process)
     schedule.every(1).hours.do(update_local_info).run()
     while True:
