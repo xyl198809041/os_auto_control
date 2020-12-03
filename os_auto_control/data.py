@@ -93,7 +93,10 @@ process_white_list = ['System Idle Process', 'System', 'Registry', 'RuntimeBroke
                       'pip.exe',
                       'HiteDriver.exe',
                       'py.exe',
-                      'Promethean Calib.exe'
+                      'Promethean Calib.exe',
+                      'nvtray.exe',
+                      'NvBackend.exe',
+
                       # 以上是教室机器上的软件
                       ]
 
