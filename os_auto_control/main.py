@@ -20,6 +20,13 @@ def init():
         os.system('shutdown -r -t 0')
 
 
+def shutdown():
+    """
+关机
+    """
+    os.system('shutdown -s -f -t 0')
+
+
 # 任务函数
 # @c.try_function
 def check_process():
@@ -79,11 +86,13 @@ def run():
     print(data.v)
     print(c.get_ip_address())
     print(c.get_mac_address())
+    pass
     # end测试
-    #init()
+    # init()
     schedule.every(1).minutes.do(update_local_self).run()
     schedule.every(5).seconds.do(check_process)
     schedule.every(1).hours.do(update_local_info).run()
+    schedule.every(1).days.at('21:00').do(shutdown)
     while True:
         schedule.run_pending()
         sleep(1)
