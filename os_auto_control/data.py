@@ -96,7 +96,12 @@ process_white_list = ['System Idle Process', 'System', 'Registry', 'RuntimeBroke
                       'Promethean Calib.exe',
                       'nvtray.exe',
                       'NvBackend.exe',
-                      'bdimeupdate.exe'
+                      'bdimeupdate.exe',
+                      'hkcmd.exe',
+                      'igfxpers.exe',
+                      'igfxtray.exe',
+                      'NVDisplay.Container.exe',
+                      'WeChatApp.exe'
                       # 以上是教室机器上的软件
                       ]
 

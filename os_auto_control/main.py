@@ -79,7 +79,7 @@ def update_local_self():
             'pip install https://codeload.github.com/xyl198809041/os_auto_control/zip/master --upgrade --no-cache-dir')
         if rt == 1:
             raise Exception('软件更新失败')
-        c.web_update('update', '0')
+        c.web_update('update', '正常')
 
 
 def run():
