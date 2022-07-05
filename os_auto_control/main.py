@@ -9,12 +9,12 @@ from os_auto_control import data, c
 # 初始化
 def init():
     if not c.config['is_init']:
-        speak('系统已安装完成,开始配置,请等待')
+        # speak('系统已安装完成,开始配置,请等待')
         os.system(r'C:\tool\DrvCeonw\DrvCeox86.exe /a')
         c.wait_process_running('DrvCeox86.exe')
         info = c.web_get_info()
         c.set_seewo_class(info['data']['name'])
-        speak('配置已完成,正在重启')
+        # speak('配置已完成,正在重启')
         c.config['is_init'] = True
         c.config_save()
         os.system('shutdown -r -t 0')
