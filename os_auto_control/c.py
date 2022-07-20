@@ -71,7 +71,6 @@ def web_get_v():
         return False
 
 
-
 def try_function(func):
     """
 设置错误上传服务器
@@ -89,7 +88,6 @@ def try_function(func):
     return new_func
 
 
-
 # old
 
 def web_update(key: str, value: str, mac: str = ''):
@@ -104,8 +102,6 @@ def web_update(key: str, value: str, mac: str = ''):
         print('更新' + key + '成功')
     else:
         print(rt['msg'])
-
-
 
 
 # 自定义函数
