@@ -82,7 +82,7 @@ def try_function(func):
         try:
             func()
         except Exception as e:
-            print(str(e))
+            print(str(e.args))
             web_update_msg(str(e), 'system_error')
 
     return new_func
