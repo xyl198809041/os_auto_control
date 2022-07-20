@@ -137,7 +137,7 @@ def check_file_in_white_Copyright(file: str):
     :param file:
     :return:
     """
-    print(file)
+    # print(file)
     try:
         translation = win32api.GetFileVersionInfo(file, '\\VarFileInfo\\Translation')[0]
         c = win32api.GetFileVersionInfo(file,
@@ -157,7 +157,7 @@ def check_file_in_black_Copyright(file: str):
     :param file:
     :return:
     """
-    print(file)
+    # print(file)
     try:
         translation = win32api.GetFileVersionInfo(file, '\\VarFileInfo\\Translation')[0]
         c = win32api.GetFileVersionInfo(file,
