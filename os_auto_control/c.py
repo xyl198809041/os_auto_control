@@ -6,6 +6,8 @@ import pack.pyChrome as chrome
 import configparser
 import psutil
 import win32api
+from typing import List
+
 from os_auto_control import data
 
 
@@ -14,37 +16,43 @@ def config_save():
         f.write(json.dumps(__config))
 
 
-def web_update(key: str, value: str, mac: str = ''):
-    """
-上传更新本机信息
-    """
-    if mac == '':
-        mac = get_mac_address()
-    rt = web.GetJson('%s/update?mac=%s&key=%s&value=%s' %
-                     (base_url, mac, key, value))
+def web_login():
+    mac = get_mac_address()
+    rt = web.GetJson(base_url + f'update_login?mac={mac}&ip={get_ip_address()}')
     if rt['code'] == 200:
-        print('更新' + key + '成功')
+        print('login 成功')
     else:
         print(rt['msg'])
 
 
-def web_msg(msg: str, type: str):
-    """
-上报消息
-    :param msg:
-    :param type:
-    """
-    try:
-        web.GetJson('%s/msg?mac=%s&type=%s&msg=%s' % (base_url, get_mac_address(), type, msg))
-    except:
-        print('上传日志失败,网络断开')
+def web_update_processes_list(list_type: str, list_data: List[str]):
+    mac = get_mac_address()
+    rt = web.GetJson(
+        f'{base_url}update_processes_list?mac={mac}&list_type={list_type}&list_data={json.dumps(list_data)}')
+    if rt['code'] == 200:
+        print('update_processes_list 成功')
+    else:
+        print(rt['msg'])
+
+
+def web_update_msg(msg: str, msg_type: str):
+    mac = get_mac_address()
+    rt = web.GetJson(
+        f'{base_url}update_msg?mac={mac}&msg_type={msg_type}&msg={msg}')
+    if rt['code'] == 200:
+        print('msg update 成功')
+    else:
+        print(rt['msg'])
 
 
 def web_get_info():
-    rt = web.GetJson('%s/get_info?mac=%s' % (base_url, get_mac_address()))
-    if rt['code'] != 200:
+    mac = get_mac_address()
+    rt = web.GetJson(
+        f'{base_url}get_info?mac={mac}')
+    if rt['code'] == 200:
+        return rt
+    else:
         raise Exception('获取主机信息错误')
-    return rt
 
 
 def web_get_v():
@@ -63,6 +71,7 @@ def web_get_v():
         return False
 
 
+
 def try_function(func):
     """
 设置错误上传服务器
@@ -75,9 +84,28 @@ def try_function(func):
             func()
         except Exception as e:
             print(str(e))
-            web_msg(str(e), 'system_error')
+            web_update_msg(str(e), 'system_error')
 
     return new_func
+
+
+
+# old
+
+def web_update(key: str, value: str, mac: str = ''):
+    """
+上传更新本机信息
+    """
+    if mac == '':
+        mac = get_mac_address()
+    rt = web.GetJson('%s/update?mac=%s&key=%s&value=%s' %
+                     (base_url, mac, key, value))
+    if rt['code'] == 200:
+        print('更新' + key + '成功')
+    else:
+        print(rt['msg'])
+
+
 
 
 # 自定义函数
@@ -162,7 +190,7 @@ def check_file_in_black_Copyright(file: str):
 
 # 参数
 web = chrome.WebBrowser(False)
-base_url = 'http://local.api.hzsgz.com/os_server'
+base_url = 'http://local.api.hzsgz.com/os_server/'
 __config = json.load(open(r'c:\tool\config.json'))
 if get_mac_address() not in __config:
     __config[get_mac_address()] = {
