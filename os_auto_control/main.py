@@ -64,7 +64,7 @@ def update_local_info():
     """
 上传更新本机信息
     """
-    c.web_update('ip', c.get_ip_address())
+    c.web_login()
 
 
 @c.try_function

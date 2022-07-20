@@ -83,27 +83,13 @@ def try_function(func):
             func()
         except Exception as e:
             print(str(e))
-            print(func.name)
+            print(func.__name__)
             web_update_msg(str(e), 'system_error')
 
     return new_func
 
 
 # old
-
-def web_update(key: str, value: str, mac: str = ''):
-    """
-上传更新本机信息
-    """
-    if mac == '':
-        mac = get_mac_address()
-    rt = web.GetJson('%s/update?mac=%s&key=%s&value=%s' %
-                     (base_url, mac, key, value))
-    if rt['code'] == 200:
-        print('更新' + key + '成功')
-    else:
-        print(rt['msg'])
-
 
 # 自定义函数
 def get_ip_address():
