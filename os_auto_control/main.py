@@ -56,6 +56,7 @@ def check_process():
     not_in_white_list = [name for name in not_in_white_list if name not in data.process_not_in_list]
     print('灰名单,提交数据:', not_in_white_list)
     c.web_update_processes_list('processes_not_in_list', not_in_white_list)
+    print(not_in_white_list)
     data.process_not_in_list.extend(not_in_white_list)
 
 
