@@ -1,9 +1,18 @@
 import os
+import tkinter
+import tkinter.simpledialog
 from time import sleep
 import psutil
 import schedule
-from pack.tool import speak
+from pack.tool import speak as tool_speck
 from os_auto_control import data, c
+
+
+def speak(text):
+    try:
+        tool_speck(text)
+    except Exception as e:
+        print(e)
 
 
 # 初始化
@@ -13,6 +22,22 @@ def init():
         os.system(r'C:\tool\DrvCeonw\DrvCeox86.exe /a')
         c.wait_process_running('DrvCeox86.exe')
         info = c.web_get_info()
+        if info['data'] is None:
+            def run_input():
+                while True:
+                    input_pcname = tkinter.simpledialog.askstring(title='配置',prompt='请输入计算机名,例如:101')
+                    if input_pcname != '':
+                        c.web_set_info(pc_name=input_pcname)
+                        print(input_pcname)
+                        root.destroy()
+                        root.quit()
+                        break
+
+            root = tkinter.Tk()
+            root.withdraw()
+            root.after(1, run_input)
+            root.mainloop()
+            info = c.web_get_info()
         c.set_seewo_class(info['data']['pc_name'])
         speak('配置已完成,正在重启')
         c.config['is_init'] = True

@@ -1,4 +1,5 @@
 import json
+import os.path
 import socket
 import time
 import uuid
@@ -53,6 +54,13 @@ def web_get_info():
         return rt
     else:
         raise Exception('获取主机信息错误')
+
+
+def web_set_info(pc_name=''):
+    if pc_name == '':
+        pc_name = input()
+    mac = get_mac_address()
+    rt = web.GetJson(f'{base_url}regedit?mac={mac}&pc_name={pc_name}')
 
 
 def web_get_v():
@@ -174,6 +182,10 @@ def check_file_in_black_Copyright(file: str):
 # 参数
 web = chrome.WebBrowser(False)
 base_url = 'http://local.api.hzsgz.com/os_server/'
+if not os.path.exists(r'c:\tool'):
+    os.mkdir(r'c:\tool')
+if not os.path.exists(r'c:\tool\config.json'):
+    open(r'c:\tool\config.json', 'w+').write('{}')
 __config = json.load(open(r'c:\tool\config.json'))
 if get_mac_address() not in __config:
     __config[get_mac_address()] = {

@@ -1,11 +1,12 @@
 import setuptools
+import os_auto_control.data
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="os_auto_control",  # Replace with your own username
-    version="1.2",
+    version=os_auto_control.data.v,
     author="xyl",
     author_email="author@example.com",
     description="我的工具",
