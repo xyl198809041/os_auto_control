@@ -74,8 +74,8 @@ def check_process():
     black_list.extend([name for name in not_in_white_list if
                        c.check_file_in_black_Copyright(processes[name].exe())])
     [processes[name].kill() for name in black_list]
-    if len(black_list) != 0:
-        speak('发现可疑软件在运行,系统已经将其封杀,如有疑问可以咨询许姚龙')
+    # if len(black_list) != 0:
+        # speak('发现可疑软件在运行,系统已经将其封杀,如有疑问可以咨询许姚龙')
     c.web_update_processes_list('processes_black_list', black_list)
     print('黑名单,杀掉进程:', black_list)
     not_in_white_list = [name for name in not_in_white_list if name not in data.process_black_list]
