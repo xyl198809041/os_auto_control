@@ -19,13 +19,11 @@ def speak(text):
 def init():
     if not c.config['is_init']:
         speak('系统已安装完成,开始配置,请等待')
-        os.system(r'C:\tool\DrvCeonw\DrvCeox86.exe /a')
-        c.wait_process_running('DrvCeox86.exe')
         info = c.web_get_info()
         if info['data'] is None:
             def run_input():
                 while True:
-                    input_pcname = tkinter.simpledialog.askstring(title='配置',prompt='请输入计算机名,例如:101')
+                    input_pcname = tkinter.simpledialog.askstring(title='配置', prompt='请输入计算机名,例如:101')
                     if input_pcname != '':
                         c.web_set_info(pc_name=input_pcname)
                         print(input_pcname)
@@ -38,7 +36,10 @@ def init():
             root.after(1, run_input)
             root.mainloop()
             info = c.web_get_info()
+
         try:
+            os.system(r'C:\tool\DrvCeonw\DrvCeox86.exe /a')
+            c.wait_process_running('DrvCeox86.exe')
             c.set_seewo_class(info['data']['pc_name'])
             speak('配置已完成,正在重启')
             c.config['is_init'] = True
