@@ -19,7 +19,7 @@ def config_save():
 
 def web_login():
     mac = get_mac_address()
-    rt = web.GetJson(base_url + f'update_login?mac={mac}&ip={get_ip_address()}')
+    rt = web.GetJson(base_url + f'update_login?mac={mac}&ip={get_ip_address()}&v={data.v}')
     if rt['code'] == 200:
         print('login 成功')
     else:
@@ -68,7 +68,7 @@ def web_get_v():
 获取版本号
     :return:
     """
-    rt = web.GetJson('%s/v' % base_url)
+    rt = web.GetJson(f'{base_url}/v')
     try:
         if rt['msg'] != data.v:
             data.v = rt['msg']
@@ -118,12 +118,15 @@ def get_mac_address():
 
 
 def set_seewo_class(id: str):
-    path = r'C:\Users\class\AppData\Roaming\Seewo\SeewoLink\config.ini'
-    config = configparser.ConfigParser()
-    config.read(path)
-    config.set('GENERAL', 'DeviceName', id)
-    with open(path, 'w') as f:
-        config.write(f)
+    try:
+        path = r'C:\Users\class\AppData\Roaming\Seewo\SeewoLink\config.ini'
+        config = configparser.ConfigParser()
+        config.read(path)
+        config.set('GENERAL', 'DeviceName', id)
+        with open(path, 'w') as f:
+            config.write(f)
+    except Exception as e:
+        raise Exception('希沃初始化配置失败')
 
 
 def wait_process_running(process: str):

@@ -38,11 +38,14 @@ def init():
             root.after(1, run_input)
             root.mainloop()
             info = c.web_get_info()
-        c.set_seewo_class(info['data']['pc_name'])
-        speak('配置已完成,正在重启')
-        c.config['is_init'] = True
-        c.config_save()
-        os.system('shutdown -r -t 0')
+        try:
+            c.set_seewo_class(info['data']['pc_name'])
+            speak('配置已完成,正在重启')
+            c.config['is_init'] = True
+            c.config_save()
+            os.system('shutdown -r -t 0')
+        except Exception as e:
+            print(e)
 
 
 # 任务函数
