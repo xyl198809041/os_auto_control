@@ -192,6 +192,11 @@ if not os.path.exists(r'c:\tool\config.json'):
 __config = json.load(open(r'c:\tool\config.json'))
 if get_mac_address() not in __config:
     __config[get_mac_address()] = {
-        'is_init': False
+        'is_init': False,
+        'auto_shutdown': True
     }
 config = __config[get_mac_address()]
+if 'auto_shutdown' not in config:
+    config['auto_shutdown'] = True
+
+config_save()

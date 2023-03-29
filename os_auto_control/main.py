@@ -123,7 +123,8 @@ def run():
     schedule.every(1).minutes.do(update_local_self).run()
     schedule.every(5).seconds.do(check_process)
     schedule.every(1).minutes.do(update_local_info).run()
-    schedule.every(1).days.at('21:00').do(shutdown)
+    if c.config['auto_shutdown']:
+        schedule.every(1).days.at('21:00').do(shutdown)
     while True:
         schedule.run_pending()
         sleep(1)
