@@ -92,7 +92,10 @@ def try_function(func):
         except Exception as e:
             print(str(e))
             print(func.__name__)
-            web_update_msg(str(e), 'system_error')
+            try:
+                web_update_msg(str(e), 'system_error')
+            except:
+                print('错误无法上传')
 
     return new_func
 
@@ -184,7 +187,7 @@ def check_file_in_black_Copyright(file: str):
 
 # 参数
 web = chrome.WebBrowser(False)
-base_url = 'http://local.api.hzsgz.com/os_server/'
+base_url = 'https://local.api.hzsgz.com:8443/os_server/'
 if not os.path.exists(r'c:\tool'):
     os.mkdir(r'c:\tool')
 if not os.path.exists(r'c:\tool\config.json'):
