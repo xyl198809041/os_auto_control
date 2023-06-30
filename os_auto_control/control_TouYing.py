@@ -83,6 +83,8 @@ class Serial_control:
         return s
 
 
+
+
 def do_TouYing(serial_TouYing, action=power_state, time_out=5):
     serial_TouYing.port_open_recv()
     serial_TouYing.send(action)
