@@ -86,15 +86,15 @@ class Serial_control:
 Serial_control.check()
 
 
-def do_TouYing(action=power_state, time_out=5):
-    Serial_control.touYing_defaul.port_open_recv()
-    Serial_control.touYing_defaul.send(action)
-    rt = Serial_control.touYing_defaul.recv(time_out)
-    Serial_control.touYing_defaul.port_close()
+def do_TouYing(serial, action=power_state, time_out=5):
+    serial.port_open_recv()
+    serial.send(action)
+    rt = serial.recv(time_out)
+    serial.port_close()
     return rt
 
 
-def check_desktop(max_diff_num=10):
+def check_desktop(serial, max_diff_num=10):
     """
 检测桌面情况,并完成操作
     """
@@ -117,7 +117,7 @@ def check_desktop(max_diff_num=10):
     if diff_num > max_diff_num:
         if do_TouYing(power_state) != ':WR=00':
             try:
-                return do_TouYing(power_off) == ':'
+                return do_TouYing(serial, power_off) == ':'
             except Exception as e:
                 print(e)
                 return False
