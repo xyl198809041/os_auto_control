@@ -115,7 +115,7 @@ def check_desktop(serial, max_diff_num=10):
             diff_num += 1
         print(diff_num)
     if diff_num > max_diff_num:
-        if do_TouYing(power_state) != ':WR=00':
+        if do_TouYing(serial, power_state) != ':WR=00':
             try:
                 return do_TouYing(serial, power_off) == ':'
             except Exception as e:
