@@ -37,29 +37,32 @@ class Serial_control:
                     return s
 
     def __init__(self, com_num='com5'):
+        self.com_mun = com_num
+        self.ser = None
+
+    def port_open_recv(self):  # 对串口的参数进行配置
         self.ser = serial.Serial()  # 创建一个串口对象
-        self.ser.port = com_num  # 设置串口号
+        self.ser.port = self.com_mun  # 设置串口号
         self.ser.baudrate = 9600  # 设置波特率
         self.ser.bytesize = 8  # 设置数据位数
         self.ser.stopbits = 1  # 设置停止位
         self.ser.parity = "N"
-
-    def port_open_recv(self):  # 对串口的参数进行配置
         self.ser.open()  # 打开串口
-        if (self.ser.isOpen()):
+        if self.ser.isOpen():
             print("串口打开成功！")
         else:
             print("串口打开失败！")
 
     def port_close(self):  # 关闭串口
         self.ser.close()
-        if (self.ser.isOpen()):
+        if self.ser.isOpen():
             print("串口关闭失败！")
         else:
             print("串口关闭成功！")
+        self.ser = None
 
     def send(self, send_data: bytes):  # 发送数据到串口
-        if (self.ser.isOpen()):
+        if self.ser.isOpen():
             self.ser.write(send_data)  # 将字符串转换为字节并发送
             print("发送成功！", send_data.decode('utf8'))
         else:
@@ -78,11 +81,11 @@ class Serial_control:
         return s
 
 
-
+serial_TouYing = Serial_control.check()
 
 
 def do_TouYing(action=power_state, time_out=5):
-    serial_TouYing = Serial_control.check()
+    global serial_TouYing
     serial_TouYing.port_open_recv()
     serial_TouYing.send(action)
     rt = serial_TouYing.recv(time_out)
