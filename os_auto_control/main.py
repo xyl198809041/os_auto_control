@@ -6,7 +6,7 @@ import psutil
 import schedule
 from pack.tool import speak as tool_speck
 from os_auto_control import data, c
-import control_TouYing
+from os_auto_control import control_TouYing
 
 
 def speak(text):
