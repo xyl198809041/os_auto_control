@@ -19,6 +19,7 @@ power_state = bytes.fromhex('50 57 52 3f 0d')
 
 
 class Serial_control:
+    touYing_defaul = None
 
     @classmethod
     def check(cls):
@@ -34,6 +35,7 @@ class Serial_control:
             finally:
                 s.port_close()
                 if is_this:
+                    cls.touYing_defaul = s
                     return s
 
     def __init__(self, com_num='com5'):
@@ -81,15 +83,14 @@ class Serial_control:
         return s
 
 
-serial_TouYing = Serial_control.check()
+Serial_control.check()
 
 
 def do_TouYing(action=power_state, time_out=5):
-    global serial_TouYing
-    serial_TouYing.port_open_recv()
-    serial_TouYing.send(action)
-    rt = serial_TouYing.recv(time_out)
-    serial_TouYing.port_close()
+    Serial_control.touYing_defaul.port_open_recv()
+    Serial_control.touYing_defaul.send(action)
+    rt = Serial_control.touYing_defaul.recv(time_out)
+    Serial_control.touYing_defaul.port_close()
     return rt
 
 
