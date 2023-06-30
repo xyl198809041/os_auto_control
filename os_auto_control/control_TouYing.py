@@ -13,9 +13,9 @@ img_list = []
 diff_num = 0
 temp = None
 
-关机 = bytes.fromhex('50 57 52 20 4f 46 46 0d')
-开机 = bytes.fromhex('50 57 52 20 4f 4e 0d')
-状态 = bytes.fromhex('50 57 52 3f 0d')
+power_off = bytes.fromhex('50 57 52 20 4f 46 46 0d')
+power_on = bytes.fromhex('50 57 52 20 4f 4e 0d')
+power_state = bytes.fromhex('50 57 52 3f 0d')
 
 
 class Serial_control:
@@ -28,7 +28,7 @@ class Serial_control:
             is_this = False
             try:
                 s.port_open_recv()
-                s.send(状态)
+                s.send(power_state)
                 temp = s.recv()
                 is_this = s.recv() == ':\r'
             finally:
@@ -79,14 +79,14 @@ class Serial_control:
         return s
 
 
-投影串口 = Serial_control.check()
+serial_TouYing = Serial_control.check()
 
 
-def do_投影(action=状态, time_out=5):
-    投影串口.port_open_recv()
-    投影串口.send(action)
-    rt = 投影串口.recv(time_out)
-    投影串口.port_close()
+def do_TouYing(action=power_state, time_out=5):
+    serial_TouYing.port_open_recv()
+    serial_TouYing.send(action)
+    rt = serial_TouYing.recv(time_out)
+    serial_TouYing.port_close()
     return rt
 
 
@@ -111,9 +111,9 @@ def check_desktop(max_diff_num=10):
             diff_num += 1
         print(diff_num)
     if diff_num > max_diff_num:
-        if do_投影(状态) != ':WR=00':
+        if do_TouYing(power_state) != ':WR=00':
             try:
-                return do_投影(关机) == ':'
+                return do_TouYing(power_off) == ':'
             except Exception as e:
                 print(e)
                 return False

@@ -6,6 +6,7 @@ import psutil
 import schedule
 from pack.tool import speak as tool_speck
 from os_auto_control import data, c
+import control_TouYing
 
 
 def speak(text):
@@ -123,6 +124,7 @@ def run():
     schedule.every(1).minutes.do(update_local_self).run()
     schedule.every(5).seconds.do(check_process)
     schedule.every(1).minutes.do(update_local_info).run()
+    schedule.every(1).seconds.do(control_TouYing.check_desktop)
     if c.config['auto_shutdown']:
         schedule.every(1).days.at('21:00').do(shutdown)
     while True:
