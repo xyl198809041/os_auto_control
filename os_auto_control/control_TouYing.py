@@ -30,7 +30,8 @@ class Serial_control:
             try:
                 s.port_open_recv()
                 s.send(power_state)
-                is_this = len(s.recv()) > 0
+                temp = s.recv()
+                is_this = temp.find('PWR') >= 0
             finally:
                 s.port_close()
                 if is_this:
@@ -111,7 +112,8 @@ def check_desktop(serial_TouYing, max_diff_num=10):
             diff_num += 1
         print(diff_num)
     if diff_num > max_diff_num:
-        if do_TouYing(serial_TouYing, power_state) != ':WR=00':
+        temp = do_TouYing(serial_TouYing, power_state)
+        if temp.find('WR=00') != -1:
             try:
                 return do_TouYing(serial_TouYing, power_off) == ':'
             except Exception as e:
