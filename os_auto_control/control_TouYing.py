@@ -30,8 +30,7 @@ class Serial_control:
             try:
                 s.port_open_recv()
                 s.send(power_state)
-                temp = s.recv()
-                is_this = s.recv() == ':\r'
+                is_this = len(s.recv()) > 0
             finally:
                 s.port_close()
                 if is_this:
