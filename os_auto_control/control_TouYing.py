@@ -11,7 +11,7 @@ import pyautogui
 img_list = []
 
 diff_num = 0
-temp = None
+temp_screen = None
 
 power_off = bytes.fromhex('50 57 52 20 4f 46 46 0d')
 power_on = bytes.fromhex('50 57 52 20 4f 4e 0d')
@@ -95,25 +95,24 @@ def check_desktop(serial_TouYing, max_diff_num=10):
     """
 检测桌面情况,并完成操作
     """
-    global temp, diff_num
+    global temp_screen, diff_num
     pyautogui.screenshot("full_img.png")
     img = cv2.imread("full_img.png")
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    if temp is None:
-        temp = img
+    if temp_screen is None:
+        temp_screen = img
     else:
-        diff = cv2.absdiff(img, temp)
+        diff = cv2.absdiff(img, temp_screen)
         diff = cv2.threshold(diff, 1, 1, cv2.THRESH_BINARY)[1]
         print('改变百分比:', np.sum(diff) / diff.size)
         if np.sum(diff) / diff.size > 0.001:
             diff_num = 0
-            temp = img
+            temp_screen = img
         else:
             diff_num += 1
         print(diff_num)
     if diff_num > max_diff_num:
-        temp = do_TouYing(serial_TouYing, power_state)
-        if temp.find('WR=00') == -1:
+        if do_TouYing(serial_TouYing, power_state).find('WR=00') == -1:
             try:
                 return do_TouYing(serial_TouYing, power_off) == ':'
             except Exception as e:
