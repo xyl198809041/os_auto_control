@@ -1,4 +1,5 @@
 import time
+import tkinter
 
 import serial.tools.list_ports
 import serial  # 导入串口通信库
@@ -12,6 +13,9 @@ img_list = []
 
 diff_num = 0
 temp_screen = None
+mouse_num = 0
+mouse_countdown = 0
+is_need_cancel = False
 
 power_off = bytes.fromhex('50 57 52 20 4f 46 46 0d')
 power_on = bytes.fromhex('50 57 52 20 4f 4e 0d')
@@ -83,14 +87,44 @@ class Serial_control:
         return s
 
 
-
-
 def do_TouYing(serial_TouYing, action=power_state, time_out=5):
     serial_TouYing.port_open_recv()
     serial_TouYing.send(action)
     rt = serial_TouYing.recv(time_out)
     serial_TouYing.port_close()
     return rt
+
+
+def win_to_cancel() -> bool:
+    global mouse_num, mouse_countdown, is_need_cancel
+    mouse_num = 0
+    mouse_countdown = 10  # 倒计时秒
+
+    def do():
+        global mouse_countdown, is_need_cancel
+        label.config(text=f'投影即将关机\n需要取消请移动鼠标\n剩余时间{mouse_countdown}秒', font=("微软雅黑", 30))
+        mouse_countdown -= 1
+        if mouse_countdown < 0:
+            is_need_cancel = False
+            root.destroy()
+        if mouse_num < 20:
+            root.after(1000, do)
+        else:
+            is_need_cancel = True
+            root.destroy()
+
+    def mouse(event):
+        global mouse_num
+        mouse_num += 1
+
+    root = tkinter.Tk()
+    root.state("zoomed")
+    label = tkinter.Label(root)
+    label.pack(expand=True)
+    root.bind('<Motion>', mouse)
+    do()
+    root.mainloop()
+    return is_need_cancel
 
 
 def check_desktop(serial_TouYing, max_diff_num=10):
@@ -115,10 +149,10 @@ def check_desktop(serial_TouYing, max_diff_num=10):
         print(diff_num)
     if diff_num > max_diff_num:
         if do_TouYing(serial_TouYing, power_state).find('WR=00') == -1:
-            try:
-                return do_TouYing(serial_TouYing, power_off) == ':'
-            except Exception as e:
-                print(e)
-                return False
+            if not win_to_cancel():
+                try:
+                    return do_TouYing(serial_TouYing, power_off) == ':'
+                except Exception as e:
+                    print(e)
         else:
             diff_num = 0 - max_diff_num
