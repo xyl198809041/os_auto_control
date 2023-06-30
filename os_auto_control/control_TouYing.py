@@ -57,7 +57,6 @@ class Serial_control:
             print("串口关闭失败！")
         else:
             print("串口关闭成功！")
-        self.ser = None
 
     def send(self, send_data: bytes):  # 发送数据到串口
         if (self.ser.isOpen()):
