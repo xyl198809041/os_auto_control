@@ -78,10 +78,11 @@ class Serial_control:
         return s
 
 
-serial_TouYing = Serial_control.check()
+
 
 
 def do_TouYing(action=power_state, time_out=5):
+    serial_TouYing = Serial_control.check()
     serial_TouYing.port_open_recv()
     serial_TouYing.send(action)
     rt = serial_TouYing.recv(time_out)
