@@ -142,7 +142,7 @@ def check_desktop(serial_TouYing, max_diff_num=10):
         diff = cv2.threshold(diff, 1, 1, cv2.THRESH_BINARY)[1]
         print('改变百分比:', np.sum(diff) / diff.size)
         if np.sum(diff) / diff.size > 0.001:
-            diff_num = 0
+            diff_num = min(0, diff_num+1)
             temp_screen = img
         else:
             diff_num += 1
@@ -155,6 +155,6 @@ def check_desktop(serial_TouYing, max_diff_num=10):
                 except Exception as e:
                     print(e)
             else:
-                diff_num = 0 - max_diff_num*2
+                diff_num = 0 - max_diff_num * 2
         else:
             diff_num = 0 - max_diff_num
