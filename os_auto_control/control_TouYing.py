@@ -154,5 +154,7 @@ def check_desktop(serial_TouYing, max_diff_num=10):
                     return do_TouYing(serial_TouYing, power_off) == ':'
                 except Exception as e:
                     print(e)
+            else:
+                diff_num = 0 - max_diff_num*2
         else:
             diff_num = 0 - max_diff_num
