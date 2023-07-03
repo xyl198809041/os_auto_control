@@ -122,6 +122,7 @@ def win_to_cancel() -> bool:
     label = tkinter.Label(root)
     label.pack(expand=True)
     root.bind('<Motion>', mouse)
+    root.attributes("-topmost", True)
     do()
     root.mainloop()
     return is_need_cancel
