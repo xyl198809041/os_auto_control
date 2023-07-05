@@ -24,6 +24,7 @@ power_state = bytes.fromhex('50 57 52 3f 0d')
 
 class Serial_control:
     touYing_defaul = None
+    touYing_state = 'X'
 
     @classmethod
     def check(cls):
@@ -92,13 +93,15 @@ def do_TouYing(serial_TouYing, action=power_state, time_out=5):
     serial_TouYing.send(action)
     rt = serial_TouYing.recv(time_out)
     serial_TouYing.port_close()
+    if action == power_state:
+        Serial_control.touYing_state = str(rt).replace('=', '')
     return rt
 
 
 def win_to_cancel() -> bool:
     global mouse_num, mouse_countdown, is_need_cancel
     mouse_num = 0
-    mouse_countdown = 10  # 倒计时秒
+    mouse_countdown = 30  # 倒计时秒
 
     def do():
         global mouse_countdown, is_need_cancel
@@ -107,7 +110,7 @@ def win_to_cancel() -> bool:
         if mouse_countdown < 0:
             is_need_cancel = False
             root.destroy()
-        if mouse_num < 20:
+        if mouse_num < 10:
             root.after(1000, do)
         else:
             is_need_cancel = True
@@ -128,7 +131,7 @@ def win_to_cancel() -> bool:
     return is_need_cancel
 
 
-def check_desktop(serial_TouYing, max_diff_num=10):
+def check_desktop(serial_TouYing, max_diff_num=600):
     """
 检测桌面情况,并完成操作
     """
@@ -143,7 +146,7 @@ def check_desktop(serial_TouYing, max_diff_num=10):
         diff = cv2.threshold(diff, 1, 1, cv2.THRESH_BINARY)[1]
         print('改变百分比:', np.sum(diff) / diff.size)
         if np.sum(diff) / diff.size > 0.001:
-            diff_num = min(0, diff_num+1)
+            diff_num = min(0, diff_num + 1)
             temp_screen = img
         else:
             diff_num += 1

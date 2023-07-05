@@ -17,9 +17,9 @@ def config_save():
         f.write(json.dumps(__config))
 
 
-def web_login():
+def web_login(tou_Ying_state):
     mac = get_mac_address()
-    rt = web.GetJson(base_url + f'update_login?mac={mac}&ip={get_ip_address()}&v={data.v}')
+    rt = web.GetJson(base_url + f'update_login?mac={mac}&ip={get_ip_address()}&v={data.v}&touYing={tou_Ying_state}')
     if rt['code'] == 200:
         print('login 成功')
     else:
