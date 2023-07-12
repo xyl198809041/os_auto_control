@@ -17,9 +17,9 @@ mouse_num = 0
 mouse_countdown = 0
 is_need_cancel = False
 
-power_off = bytes.fromhex('0d 50 57 52 20 4f 46 46 0d')
-power_on = bytes.fromhex('0d 50 57 52 20 4f 4e 0d')
-power_state = bytes.fromhex('0d 50 57 52 3f 0d')
+power_off = bytes.fromhex('50 57 52 20 4f 46 46 0d')
+power_on = bytes.fromhex('50 57 52 20 4f 4e 0d')
+power_state = bytes.fromhex('50 57 52 3f 0d')
 
 
 class Serial_control:
@@ -90,6 +90,8 @@ class Serial_control:
 
 def do_TouYing(serial_TouYing, action=power_state, time_out=5):
     serial_TouYing.port_open_recv()
+    serial_TouYing.send(bytes.fromhex('0d'))
+    serial_TouYing.recv(time_out=1)
     serial_TouYing.send(action)
     rt = serial_TouYing.recv(time_out)
     serial_TouYing.port_close()
