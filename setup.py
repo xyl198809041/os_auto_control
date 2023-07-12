@@ -18,6 +18,7 @@ setuptools.setup(
     install_requires=[
         'schedule',
         'pyautogui',
-        'opencv-python'
+        'opencv-python',
+        'pyserial'
     ]
 )

@@ -91,15 +91,19 @@ class Serial_control:
 
 
 def do_TouYing(serial_TouYing, action=power_state, time_out=5):
-    serial_TouYing.port_open_recv()
-    serial_TouYing.send(bytes.fromhex('0d'))
-    serial_TouYing.recv(time_out=1)
-    serial_TouYing.send(action)
-    rt = serial_TouYing.recv(time_out)
-    serial_TouYing.port_close()
-    if action == power_state:
-        Serial_control.touYing_state = str(rt)
-    return rt
+    for i in range(3):
+        try:
+            serial_TouYing.port_open_recv()
+            serial_TouYing.send(bytes.fromhex('0d'))
+            serial_TouYing.recv(1)
+            serial_TouYing.send(action)
+            rt = serial_TouYing.recv(time_out)
+            serial_TouYing.port_close()
+            if action == power_state:
+                Serial_control.touYing_state = str(rt)
+            return rt
+        except Exception as e:
+            print('投影控制错误:',e)
 
 
 def win_to_cancel() -> bool:
