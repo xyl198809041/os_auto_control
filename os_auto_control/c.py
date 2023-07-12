@@ -70,7 +70,7 @@ def web_get_v():
     """
     rt = web.GetJson(f'{base_url}v')
     try:
-        if rt['msg'] != data.server_v:
+        if rt['msg'] > data.server_v:
             data.server_v = rt['msg']
             return True
         else:
