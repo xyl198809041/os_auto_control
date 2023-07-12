@@ -100,7 +100,7 @@ def do_TouYing(serial_TouYing, action=power_state, time_out=5):
             rt = serial_TouYing.recv(time_out)
             serial_TouYing.port_close()
             if action == power_state:
-                Serial_control.touYing_state = str(rt)
+                Serial_control.touYing_state = str(rt).replace('=', '')
             return rt
         except Exception as e:
             print('投影控制错误:',e)
