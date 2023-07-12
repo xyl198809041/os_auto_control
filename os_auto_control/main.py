@@ -95,6 +95,7 @@ def update_local_info():
     """
 上传更新本机信息
     """
+
     c.web_login(control_TouYing.Serial_control.touYing_state)
 
 
@@ -122,12 +123,13 @@ def run():
     # end测试
     init()
     schedule.every(1).minutes.do(update_local_self).run()
-    schedule.every(5).seconds.do(check_process)
-    schedule.every(1).minutes.do(update_local_info).run()
     if control_TouYing.Serial_control.check() is not None:
         schedule.every(1).seconds.do(control_TouYing.check_desktop,
                                      serial_TouYing=control_TouYing.Serial_control.touYing_defaul,
                                      max_diff_num=10)
+    schedule.every(5).seconds.do(check_process)
+    schedule.every(1).minutes.do(update_local_info).run()
+
     if c.config['auto_shutdown']:
         schedule.every(1).days.at('21:00').do(shutdown)
     while True:
