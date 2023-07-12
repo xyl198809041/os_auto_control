@@ -41,7 +41,7 @@ class Serial_control:
             finally:
                 s.port_close()
                 if is_this:
-                    cls.touYing_state = temp
+                    cls.touYing_state = temp.replace('=', '')
                     cls.touYing_defaul = s
                     return s
 
@@ -98,7 +98,7 @@ def do_TouYing(serial_TouYing, action=power_state, time_out=5):
     rt = serial_TouYing.recv(time_out)
     serial_TouYing.port_close()
     if action == power_state:
-        Serial_control.touYing_state = str(rt).replace('=', '')
+        Serial_control.touYing_state = str(rt)
     return rt
 
 
