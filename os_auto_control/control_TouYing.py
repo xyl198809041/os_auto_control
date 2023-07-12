@@ -32,6 +32,7 @@ class Serial_control:
         for port in port_list:
             s = cls(port.device)
             is_this = False
+            temp = cls.touYing_state
             try:
                 s.port_open_recv()
                 s.send(power_state)
@@ -40,6 +41,7 @@ class Serial_control:
             finally:
                 s.port_close()
                 if is_this:
+                    cls.touYing_state = temp
                     cls.touYing_defaul = s
                     return s
 
