@@ -1,4 +1,5 @@
 import os
+import time
 import tkinter
 import tkinter.simpledialog
 from time import sleep
@@ -115,7 +116,7 @@ def update_local_self():
         c.web_update_msg('正常', 'update')
 
 
-def run():
+def _run():
     # 测试
     print(data.v)
     print(c.get_ip_address())
@@ -138,10 +139,18 @@ def run():
 
     schedule.every(5).seconds.do(c.run_job_by_web)
     # 注册需要运行的程序
-
+    time.sleep(10)
+    raise Exception('2')
     while True:
         schedule.run_pending()
         sleep(1)
+
+
+def run():
+    try:
+        _run()
+    except Exception:
+        os.system('start pythonw run.pyw')
 
 
 if __name__ == '__main__':
