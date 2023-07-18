@@ -78,15 +78,15 @@ def check_process():
     # if len(black_list) != 0:
     # speak('发现可疑软件在运行,系统已经将其封杀,如有疑问可以咨询许姚龙')
     c.web_update_processes_list('processes_black_list', black_list)
-    print('黑名单,杀掉进程:', black_list)
+    # print('黑名单,杀掉进程:', black_list)
     not_in_white_list = [name for name in not_in_white_list if name not in data.process_black_list]
     # 不在名单中的,再说
 
     # 不在所有名单中,提交
     not_in_white_list = [name for name in not_in_white_list if name not in data.process_not_in_list]
-    print('灰名单,提交数据:', not_in_white_list)
+    # print('灰名单,提交数据:', not_in_white_list)
     c.web_update_processes_list('processes_not_in_list', not_in_white_list)
-    print(not_in_white_list)
+    # print(not_in_white_list)
     data.process_not_in_list.extend(not_in_white_list)
 
 
@@ -95,7 +95,8 @@ def update_local_info():
     """
 上传更新本机信息
     """
-    control_TouYing.do_TouYing(control_TouYing.Serial_control.touYing_defaul)
+    if control_TouYing.Serial_control.touYing_defaul is not None:
+        control_TouYing.do_TouYing(control_TouYing.Serial_control.touYing_defaul)
     c.web_login(control_TouYing.Serial_control.touYing_state)
 
 
@@ -119,20 +120,25 @@ def run():
     print(data.v)
     print(c.get_ip_address())
     print(c.get_mac_address())
+
     pass
     # end测试
     init()
 
-    schedule.every(1).minutes.do(update_local_self).run()
+    schedule.every(1).minutes.do(update_local_self).tag('update_local_self').run()
     control_TouYing.Serial_control.check()
-    schedule.every(1).minutes.do(update_local_info).run()
-    schedule.every(5).seconds.do(check_process)
+    schedule.every(1).minutes.do(update_local_info).tag('update_local_info').run()
+    schedule.every(5).seconds.do(check_process).tag('check_process')
     if control_TouYing.Serial_control.touYing_defaul is not None:
-        schedule.every(1).seconds.do(control_TouYing.check_desktop,
+        schedule.every(6).seconds.do(control_TouYing.check_desktop,
                                      serial_TouYing=control_TouYing.Serial_control.touYing_defaul,
-                                     max_diff_num=10)
+                                     max_diff_num=10).tag('control_TouYing').run()
     if c.config['auto_shutdown']:
-        schedule.every(1).days.at('21:00').do(shutdown)
+        schedule.every(1).days.at('21:00').do(shutdown).tag('shutdown')
+
+    schedule.every(5).seconds.do(c.run_job_by_web)
+    # 注册需要运行的程序
+
     while True:
         schedule.run_pending()
         sleep(1)

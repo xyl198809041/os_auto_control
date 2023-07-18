@@ -139,9 +139,10 @@ def win_to_cancel() -> bool:
     return is_need_cancel
 
 
-def check_desktop(serial_TouYing, max_diff_num=600):
+def check_desktop(serial_TouYing, max_diff_num=10):
     """
 检测桌面情况,并完成操作
+max_diff_num 设置时间(分钟)
     """
     global temp_screen, diff_num
     pyautogui.screenshot("full_img.png")

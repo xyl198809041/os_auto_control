@@ -3,9 +3,12 @@ import os.path
 import socket
 import time
 import uuid
+from enum import Enum
+
 import pack.pyChrome as chrome
 import configparser
 import psutil
+import schedule
 import win32api
 from typing import List
 
@@ -185,9 +188,45 @@ def check_file_in_black_Copyright(file: str):
         return False
 
 
+def run_job_by_web():
+    rt = web.GetJson(base_url + f'get_job_by_mac?mac={get_mac_address()}')
+    job_list = rt['data']
+    for job in job_list:
+        local_job = schedule.get_jobs(job['job_name'])
+        if len(local_job) > 0:
+            update_job_done_info(job=job, done_type=Done_type.running)
+            local_job[0].job_func()
+            update_job_done_info(job=job, done_type=Done_type.done)
+    print('run_job_by_web', '成功')
+
+
+class Done_type(Enum):
+    done = '5'
+    error = '-1'
+    running = '1'
+    wait = '0'
+
+
+def update_job_done_info(job, done_type: Done_type, msg=''):
+    """
+任务完成后上传记录
+    :param job: 任务内容
+    :param done_type: 完成情况
+    :param msg: 信息
+    """
+    rt = web.GetJson(
+        base_url +
+        f'update_job_done?mac={get_mac_address()}&job_id={job["_id"]}&done_type={done_type.value}&msg={msg}')
+    if rt['code'] == 200:
+        print('上传任务执行记录成功', job)
+    else:
+        print('上传任务执行记录成功', job)
+
+
 # 参数
 web = chrome.WebBrowser(False)
 base_url = 'https://local.api.hzsgz.com:8443/os_server/'
+# base_url = 'http://localhost:93/os_server/'
 if not os.path.exists(r'c:\tool'):
     os.mkdir(r'c:\tool')
 if not os.path.exists(r'c:\tool\config.json'):
