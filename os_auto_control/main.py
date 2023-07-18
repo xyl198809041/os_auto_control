@@ -139,8 +139,7 @@ def _run():
 
     schedule.every(5).seconds.do(c.run_job_by_web)
     # 注册需要运行的程序
-    time.sleep(10)
-    raise Exception('2')
+
     while True:
         schedule.run_pending()
         sleep(1)
