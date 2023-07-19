@@ -205,6 +205,7 @@ class Done_type(Enum):
     error = '-1'
     running = '1'
     wait = '0'
+    delete = '-5'
 
 
 def update_job_done_info(job, done_type: Done_type, msg=''):

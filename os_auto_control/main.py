@@ -114,6 +114,8 @@ def update_local_self():
         if rt == 1:
             raise Exception('软件更新失败')
         c.web_update_msg('正常', 'update')
+        os.system('start pythonw run.pyw')
+        exit()
 
 
 def _run():
@@ -149,7 +151,8 @@ def run():
     try:
         _run()
     except Exception:
-        os.system('start pythonw run.pyw')
+        os.system('start pythonw os_auto_control\\run.pyw')
+        exit()
 
 
 if __name__ == '__main__':
