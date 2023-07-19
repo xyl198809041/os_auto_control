@@ -151,7 +151,7 @@ def run():
     try:
         _run()
     except Exception:
-        os.system(r'start pythonw C:\Users\class\AppData\Local\Programs\Python\Python375\Lib\site-packages\os_auto_control\run.py')
+        os.system(r'start pythonw C:\Users\class\AppData\Local\Programs\Python\Python37\Lib\site-packages\os_auto_control\run.py')
         exit()
 
 
