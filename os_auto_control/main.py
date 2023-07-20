@@ -99,6 +99,7 @@ def update_local_info():
     if control_TouYing.Serial_control.touYing_defaul is not None:
         control_TouYing.do_TouYing(control_TouYing.Serial_control.touYing_defaul)
     c.web_login(control_TouYing.Serial_control.touYing_state)
+    return control_TouYing.Serial_control.touYing_state
 
 
 @c.try_function
