@@ -91,7 +91,7 @@ def try_function(func):
 
     def new_func():
         try:
-            func()
+            return func()
         except Exception as e:
             print(str(e))
             print(func.__name__)
@@ -195,7 +195,7 @@ def run_job_by_web():
         local_job = schedule.get_jobs(job['job_name'])
         if len(local_job) > 0:
             update_job_done_info(job=job, done_type=Done_type.running)
-            msg = local_job[0].job_func()
+            msg = local_job[0].run()
             update_job_done_info(job=job, done_type=Done_type.done, msg=msg)
     print('run_job_by_web', '成功')
 
