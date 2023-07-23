@@ -20,6 +20,7 @@ is_need_cancel = False
 power_off = bytes.fromhex('50 57 52 20 4f 46 46 0d')
 power_on = bytes.fromhex('50 57 52 20 4f 4e 0d')
 power_state = bytes.fromhex('50 57 52 3f 0d')
+LAMP = bytes.fromhex('4c 41 4d 50 3f 0d')
 
 
 class Serial_control:
@@ -103,7 +104,7 @@ def do_TouYing(serial_TouYing, action=power_state, time_out=5):
                 Serial_control.touYing_state = str(rt).replace('=', '')
             return rt
         except Exception as e:
-            print('投影控制错误:',e)
+            print('投影控制错误:', e)
 
 
 def win_to_cancel() -> bool:
