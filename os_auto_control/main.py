@@ -104,11 +104,11 @@ def update_local_info():
 
 
 @c.try_function
-def update_local_self():
+def update_local_self(must_update=False):
     """
 软件更新,重启后生效
     """
-    if c.web_get_v():
+    if c.web_get_v() or must_update:
         rt = os.system(
             'pip install https://codeload.github.com/xyl198809041/py_tool/zip/master --upgrade --no-cache-dir')
         rt = os.system(
@@ -146,6 +146,7 @@ def _run():
 
     # job任务注册
     schedule.every(1000).days.do(job_func=jobs.job_open_TouYing).tag('open_TouYing')
+    schedule.every(1000).days.do(job_func=update_local_self,must_update=True).tag('update_local_self_must')
     # job任务注册结束
     while True:
         schedule.run_pending()
