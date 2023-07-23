@@ -116,7 +116,7 @@ def update_local_self():
         if rt == 1:
             raise Exception('软件更新失败')
         c.web_update_msg('正常', 'update')
-        os.system('start pythonw run.py')
+        os.system(r'start pythonw C:\Users\class\AppData\Local\Programs\Python\Python37\Lib\site-packages\os_auto_control\run.py')
         exit()
 
 
