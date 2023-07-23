@@ -1,5 +1,5 @@
 from os_auto_control import c
-from control_TouYing import *
+from os_auto_control.control_TouYing import *
 
 
 def job_open_TouYing():
