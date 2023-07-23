@@ -10,4 +10,4 @@ def job_open_TouYing():
     if Serial_control.touYing_defaul is None:
         return Serial_control.touYing_state
     else:
-        return do_TouYing(Serial_control.touYing_defaul, action=power_off)
+        return do_TouYing(Serial_control.touYing_defaul, action=power_on)
