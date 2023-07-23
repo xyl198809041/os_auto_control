@@ -198,6 +198,8 @@ def run_job_by_web():
             msg = local_job[0].run()
             print('msg', msg)
             update_job_done_info(job=job, done_type=Done_type.done, msg=msg)
+        else:
+            update_job_done_info(job=job, done_type=Done_type.error, msg='不支持:'+job['job_name'])
     print('run_job_by_web', '成功')
 
 
