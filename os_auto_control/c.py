@@ -89,9 +89,9 @@ def try_function(func):
     :return:
     """
 
-    def new_func():
+    def new_func(**kwargs):
         try:
-            return func()
+            return func(**kwargs)
         except Exception as e:
             print(str(e))
             print(func.__name__)
@@ -222,7 +222,7 @@ def update_job_done_info(job, done_type: Done_type, msg=''):
     if rt['code'] == 200:
         print('上传任务执行记录成功', job)
     else:
-        print('上传任务执行记录成功', job)
+        print('上传任务执行记录失败', job)
 
 
 # 参数

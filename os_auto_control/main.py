@@ -116,7 +116,8 @@ def update_local_self(must_update=False):
         if rt == 1:
             raise Exception('软件更新失败')
         c.web_update_msg('正常', 'update')
-        os.system(r'start pythonw C:\Users\class\AppData\Local\Programs\Python\Python37\Lib\site-packages\os_auto_control\run.py')
+        os.system(
+            r'start pythonw C:\Users\class\AppData\Local\Programs\Python\Python37\Lib\site-packages\os_auto_control\run.py')
         schedule.every(5).seconds.do(exit)
 
 
@@ -147,7 +148,7 @@ def _run():
     # job任务注册
     schedule.every(1000).days.do(job_func=jobs.job_open_TouYing).tag('open_TouYing')
     schedule.every(1000).days.do(job_func=jobs.job_LAMP_TouYing).tag('job_LAMP_TouYing')
-    schedule.every(1000).days.do(job_func=update_local_self,must_update=True).tag('update_local_self_must')
+    schedule.every(1000).days.do(job_func=update_local_self, must_update=True).tag('update_local_self_must')
     # job任务注册结束
     while True:
         schedule.run_pending()
@@ -158,11 +159,11 @@ def run():
     try:
         _run()
     except Exception:
-        os.system(r'start pythonw C:\Users\class\AppData\Local\Programs\Python\Python37\Lib\site-packages\os_auto_control\run.py')
+        os.system(
+            r'start pythonw C:\Users\class\AppData\Local\Programs\Python\Python37\Lib\site-packages\os_auto_control\run.py')
         exit()
 
 
 if __name__ == '__main__':
     # 测试
     run()
-
