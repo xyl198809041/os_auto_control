@@ -8,6 +8,7 @@ import schedule
 from pack.tool import speak as tool_speck
 from os_auto_control import data, c
 from os_auto_control import control_TouYing
+from os_auto_control import jobs
 
 
 def speak(text):
@@ -143,6 +144,9 @@ def _run():
     schedule.every(5).seconds.do(c.run_job_by_web)
     # 注册需要运行的程序
 
+    # job任务注册
+    schedule.every(1000).days.do(job_func=jobs.job_open_TouYing).tag('open_TouYing')
+    # job任务注册结束
     while True:
         schedule.run_pending()
         sleep(1)

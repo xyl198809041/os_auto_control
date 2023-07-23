@@ -196,6 +196,7 @@ def run_job_by_web():
         if len(local_job) > 0:
             update_job_done_info(job=job, done_type=Done_type.running)
             msg = local_job[0].run()
+            print('msg', msg)
             update_job_done_info(job=job, done_type=Done_type.done, msg=msg)
     print('run_job_by_web', '成功')
 
