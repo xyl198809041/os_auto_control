@@ -117,7 +117,7 @@ def update_local_self(must_update=False):
             raise Exception('软件更新失败')
         c.web_update_msg('正常', 'update')
         os.system(r'start pythonw C:\Users\class\AppData\Local\Programs\Python\Python37\Lib\site-packages\os_auto_control\run.py')
-        exit()
+        schedule.every(5).seconds.do(exit)
 
 
 def _run():
@@ -164,3 +164,4 @@ def run():
 if __name__ == '__main__':
     # 测试
     run()
+
