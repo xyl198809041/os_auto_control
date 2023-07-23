@@ -146,6 +146,7 @@ def _run():
 
     # job任务注册
     schedule.every(1000).days.do(job_func=jobs.job_open_TouYing).tag('open_TouYing')
+    schedule.every(1000).days.do(job_func=jobs.job_LAMP_TouYing).tag('job_LAMP_TouYing')
     schedule.every(1000).days.do(job_func=update_local_self,must_update=True).tag('update_local_self_must')
     # job任务注册结束
     while True:
