@@ -38,7 +38,7 @@ class Serial_control:
                 s.port_open_recv()
                 s.send(power_state)
                 temp = s.recv()
-                is_this = temp.find('PWR') >= 0
+                is_this = temp.find('R') >= 0
             finally:
                 s.port_close()
                 if is_this:
@@ -95,8 +95,6 @@ def do_TouYing(serial_TouYing, action=power_state, time_out=5):
     for i in range(3):
         try:
             serial_TouYing.port_open_recv()
-            serial_TouYing.send(bytes.fromhex('0d'))
-            serial_TouYing.recv(3)
             serial_TouYing.send(bytes.fromhex('0d'))
             serial_TouYing.recv(3)
             serial_TouYing.send(action)
