@@ -96,7 +96,9 @@ def do_TouYing(serial_TouYing, action=power_state, time_out=5):
         try:
             serial_TouYing.port_open_recv()
             serial_TouYing.send(bytes.fromhex('0d'))
-            serial_TouYing.recv(1)
+            serial_TouYing.recv(3)
+            serial_TouYing.send(bytes.fromhex('0d'))
+            serial_TouYing.recv(3)
             serial_TouYing.send(action)
             rt = serial_TouYing.recv(time_out)
             serial_TouYing.port_close()
