@@ -40,7 +40,10 @@ class Serial_control:
                 temp = s.recv()
                 is_this = temp.find('R') >= 0
             finally:
-                s.port_close()
+                try:
+                    s.port_close()
+                except:
+                    pass
                 if is_this:
                     cls.touYing_state = temp.replace('=', '')
                     cls.touYing_defaul = s
