@@ -139,9 +139,9 @@ def _run():
     schedule.every(1).minutes.do(update_local_info).tag('update_local_info').run()
     schedule.every(5).seconds.do(check_process).tag('check_process')
     if control_TouYing.Serial_control.touYing_defaul is not None:
-        schedule.every(6).seconds.do(control_TouYing.check_desktop,
-                                     serial_TouYing=control_TouYing.Serial_control.touYing_defaul,
-                                     max_diff_num=10).tag('control_TouYing').run()
+        schedule.every(60).seconds.do(control_TouYing.check_desktop,
+                                      serial_TouYing=control_TouYing.Serial_control.touYing_defaul,
+                                      max_diff_num=10).tag('control_TouYing').run()
     if c.config['auto_shutdown']:
         schedule.every(1).days.at('21:00').do(shutdown).tag('shutdown')
 
