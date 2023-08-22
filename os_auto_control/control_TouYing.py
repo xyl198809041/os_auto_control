@@ -43,12 +43,12 @@ class Serial_control:
             except:
                 try:
                     s.port_close()
-                    print('端口关闭')
                 except Exception:
                     print(1)
             if is_this:
                 cls.touYing_state = temp.replace('=', '')
                 cls.touYing_defaul = s
+                print(s)
                 return s
 
     def __init__(self, com_num='com5'):
