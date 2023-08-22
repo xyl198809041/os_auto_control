@@ -30,6 +30,7 @@ class Serial_control:
     @classmethod
     def check(cls):
         port_list = list(serial.tools.list_ports.comports())
+        print(port_list)
         for port in port_list:
             s = cls(port.device)
             is_this = False
@@ -62,9 +63,9 @@ class Serial_control:
         self.ser.parity = "N"
         self.ser.open()  # 打开串口
         if self.ser.isOpen():
-            print("串口打开成功！")
+            print(f"串口{self.com_mun}打开成功！")
         else:
-            print("串口打开失败！")
+            print(f"串口{self.com_mun}打开失败！")
 
     def port_close(self):  # 关闭串口
         self.ser.close()
