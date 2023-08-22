@@ -50,6 +50,7 @@ class Serial_control:
                 cls.touYing_defaul = s
                 print(s)
                 return s
+        print(port_list)
 
     def __init__(self, com_num='com5'):
         self.com_mun = com_num
