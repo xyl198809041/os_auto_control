@@ -33,18 +33,11 @@ class Serial_control:
         print(port_list)
         for port in port_list:
             s = cls(port.device)
-            is_this = False
-            temp = cls.touYing_state
-            try:
-                s.port_open_recv()
-                s.send(power_state)
-                temp = s.recv()
-                is_this = temp.find('R') >= 0
-            except:
-                try:
-                    s.port_close()
-                except Exception:
-                    print(1)
+            s.port_open_recv()
+            s.send(power_state)
+            temp = s.recv()
+            is_this = temp.find('R') >= 0
+            s.port_close()
             if is_this:
                 cls.touYing_state = temp.replace('=', '')
                 cls.touYing_defaul = s

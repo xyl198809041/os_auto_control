@@ -132,7 +132,10 @@ def _run():
     init()
 
     schedule.every(1).minutes.do(update_local_self).tag('update_local_self').run()
-    control_TouYing.Serial_control.check()
+    try:
+        control_TouYing.Serial_control.check()
+    except:
+        print('检测投影错误')
     schedule.every(1).minutes.do(update_local_info).tag('update_local_info').run()
     schedule.every(5).seconds.do(check_process).tag('check_process')
     if control_TouYing.Serial_control.touYing_defaul is not None:
