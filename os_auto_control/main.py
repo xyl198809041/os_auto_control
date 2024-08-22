@@ -21,7 +21,7 @@ def speak(text):
 # 初始化
 def init():
     if not c.config['is_init']:
-        speak('系统已安装完成,开始配置,请等待')
+        speak('系统已安装完成,请输入门牌号,完成配置')
         info = c.web_get_info()
         if info['data'] is None:
             def run_input():
