@@ -19,6 +19,7 @@ setuptools.setup(
         'schedule',
         'pyautogui',
         'opencv-python',
-        'pyserial'
+        'pyserial',
+        'urllib3>=1.21.1,<2.0.0'
     ]
 )

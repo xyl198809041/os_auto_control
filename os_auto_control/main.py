@@ -1,4 +1,5 @@
 import os
+import threading
 import time
 import tkinter
 import tkinter.simpledialog
@@ -18,12 +19,45 @@ def speak(text):
         print(e)
 
 
+def timeout_input(prompt, timeout=5):
+    """
+    带超时的输入函数
+    :param prompt: 输入提示
+    :param timeout: 超时时间（秒）
+    :return: 用户输入的内容或超时后返回None
+    """
+    result = [None]
+    thread_started = [False]
+
+    def get_input():
+        thread_started[0] = True
+        result[0] = input(prompt)
+
+    # 创建并启动输入线程
+    input_thread = threading.Thread(target=get_input)
+    input_thread.daemon = True
+    input_thread.start()
+
+    # 等待线程启动
+    while not thread_started[0]:
+        time.sleep(0.1)
+
+    # 等待指定时间
+    input_thread.join(timeout)
+
+    return result[0]
+
+
 # 初始化
 def init():
     if not c.config['is_init']:
         speak('系统已安装完成,请输入门牌号,完成配置')
         info = c.web_get_info()
-        if info['data'] is None:
+
+
+        input_value = timeout_input('请输入任意内容重置电脑名设置', timeout=5)
+
+        if info['data'] is None or input_value is not None:
             def run_input():
                 while True:
                     input_pcname = tkinter.simpledialog.askstring(title='配置', prompt='请输入计算机名,例如:101')
