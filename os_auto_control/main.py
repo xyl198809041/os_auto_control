@@ -51,15 +51,16 @@ def timeout_input(prompt, timeout=5):
 # 初始化
 def init():
     input_value = timeout_input('请输入任意内容重置电脑名设置', timeout=5)
+    info = c.web_get_info()
+    print(info)
     if not c.config['is_init'] or input_value is not None:
         speak('系统已安装完成,请输入门牌号,完成配置')
-        info = c.web_get_info()
 
         if info['data'] is None or input_value is not None:
             def run_input():
                 while True:
                     input_pcname = tkinter.simpledialog.askstring(title='配置', prompt='请输入计算机名,例如:101')
-                    if input_pcname != '':
+                    if input_pcname != '' and input_pcname is not None:
                         c.web_set_info(pc_name=input_pcname)
                         print(input_pcname)
                         root.destroy()
