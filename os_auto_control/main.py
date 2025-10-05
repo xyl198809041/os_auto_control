@@ -50,9 +50,13 @@ def timeout_input(prompt, timeout=5):
 
 # 初始化
 def init():
-    input_value = timeout_input('请输入任意内容重置电脑名设置', timeout=5)
     info = c.web_get_info()
-    print(info)
+    input_value = None
+    try:
+        print('电脑名:', info['data']['pc_name'])
+        input_value = timeout_input('请输入任意内容重置电脑名设置', timeout=5)
+    except:
+        print('信息不存在,或新电脑')
     if not c.config['is_init'] or input_value is not None:
         speak('系统已安装完成,请输入门牌号,完成配置')
 
