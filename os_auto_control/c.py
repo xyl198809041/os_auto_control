@@ -231,7 +231,7 @@ def update_job_done_info(job, done_type: Done_type, msg=''):
 
 # 参数
 web = chrome.WebBrowser(False)
-base_url = 'https://local.api.hzsgz.com:8443/os_server/'
+base_url = 'https://local.api.hzsgz.com/os_server/'
 # base_url = 'http://localhost:93/os_server/'
 if not os.path.exists(r'c:\tool'):
     os.mkdir(r'c:\tool')
